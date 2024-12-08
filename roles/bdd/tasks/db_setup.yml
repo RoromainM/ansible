@@ -1,0 +1,15 @@
+- name: Create PostgreSQL user
+  postgresql_user:
+    name: vagrant
+    password: password
+    priv: "ALL"
+
+- name: Create databases
+  postgresql_db:
+    name: "{{ item }}"
+    owner: vagrant
+  with_items:
+    - all
+    - dev
+    - stage
+    - prod

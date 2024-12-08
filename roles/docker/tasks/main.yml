@@ -1,0 +1,35 @@
+---
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+  become: yes
+
+- name: Install Docker Compose
+  apt:
+    name: docker-compose
+    state: present
+  become: yes
+
+- name: Create directory for Docker Compose
+  file:
+    path: /opt/docker
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Copy Docker Compose files to target
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/docker/{{ item }}"
+    mode: '0644'
+  with_items:
+    - docker-compose.yml
+    - .env
+  become: yes
+
+- name: Start Docker Compose services
+  command: docker compose up -d --build
+  args:
+    chdir: /opt/docker
+  become: yes

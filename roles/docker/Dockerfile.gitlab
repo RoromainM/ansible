@@ -1,0 +1,53 @@
+# Utiliser l'image GitLab officielle comme base
+FROM gitlab/gitlab-ce:latest
+
+# Définir des variables d'environnement si nécessaire
+ENV GITLAB_HOME=/var/opt/gitlab
+
+# Exposer les ports nécessaires
+EXPOSE 80 443 22
+
+# Ajouter des configurations ou scripts personnalisés si besoin
+# COPY custom-script.sh /custom-script.sh
+# RUN chmod +x /custom-script.sh && /custom-script.sh
+
+# Laisser GitLab se configurer automatiquement à l'exécution
+CMD ["bash", "/assets/wrapper"]
+1~# Utiliser l'image GitLab officielle comme base
+FROM gitlab/gitlab-ce:latest
+
+# Définir des variables d'environnement si nécessaire
+ENV GITLAB_HOME=/var/opt/gitlab
+
+# Exposer les ports nécessaires
+EXPOSE 80 443 22
+
+# Ajouter des configurations ou scripts personnalisés si besoin
+# COPY custom-script.sh /custom-script.sh
+# RUN chmod +x /custom-script.sh && /custom-script.sh
+
+# Laisser GitLab se configurer automatiquement à l'exécution
+CMD ["bash", "/assets/wrapper"]
+1~# Utiliser l'image GitLab officielle comme base
+FROM gitlab/gitlab-ce:latest
+
+# Définir des variables d'environnement si nécessaire
+ENV GITLAB_HOME=/var/opt/gitlab
+
+# Exposer les ports nécessaires
+EXPOSE 80 443 22
+
+# Ajouter des configurations ou scripts personnalisés si besoin
+# COPY custom-script.sh /custom-script.sh
+# RUN chmod +x /custom-script.sh && /custom-script.sh
+
+# Laisser GitLab se configurer automatiquement à l'exécution
+CMD ["bash", "/assets/wrapper"]
+1~# Utiliser l'image GitLab officielle comme base
+FROM gitlab/gitlab-ce:latest
+
+ENV GITLAB_HOME=/var/opt/gitlab
+
+EXPOSE 80 443 22
+
+CMD ["bash", "/assets/wrapper"]

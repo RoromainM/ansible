@@ -1,0 +1,53 @@
+- name: Install PostgreSQL
+  apt:
+    name: postgresql
+    state: present
+  tags:
+    - bdd
+  become: yes
+
+- name: Configure PostgreSQL for remote access
+  template:
+    src: pg_hba.conf.j2
+    dest: /etc/postgresql/15/main/pg_hba.conf
+  tags:
+    - bdd
+  notify: Restart PostgreSQL
+  become: yes
+
+- name: Create PostgreSQL user
+  postgresql_user:
+    name: vagrant
+    password: password
+    state: present
+  tags:
+    - bdd
+  become: yes
+
+- name: Create PostgreSQL databases
+  postgresql_db:
+    name: "{{ item }}"
+    owner: vagrant
+  with_items:
+    - all
+    - dev
+    - stage
+    - prod
+  tags:
+    - bdd
+  become: yes
+
+- name: Grant privileges on databases to user vagrant
+  postgresql_privs:
+    db: "{{ item }}"
+    role: vagrant
+    privs: "ALL"
+    type: database
+  with_items:
+    - all
+    - dev
+    - stage
+    - prod
+  tags:
+    - bdd
+  become: yes

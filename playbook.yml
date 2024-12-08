@@ -1,0 +1,19 @@
+- name: Apply common configurations
+  hosts: all
+  roles:
+    - common
+
+- name: Set up PostgreSQL
+  hosts: postgres
+  roles:
+    - bdd
+
+- name: Set up GitLab
+  hosts: gitlab
+  roles:
+    - gitlab
+
+- name: Deploy Dockerized GitLab and PostgreSQL
+  hosts: all
+  roles:
+    - docker

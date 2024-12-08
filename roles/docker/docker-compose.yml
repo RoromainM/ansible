@@ -1,0 +1,52 @@
+services:
+  # Service GitLab
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: gitlab
+    restart: always
+    ports:
+      - '8081:80'      # Port HTTP
+      - '443:443'    # Port HTTPS
+      - '2222:22'      # Port SSH
+    volumes:
+      - gitlab-data:/var/opt/gitlab
+      - gitlab-config:/etc/gitlab
+      - gitlab-logs:/var/log/gitlab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost'
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'unicode'
+        gitlab_rails['db_database'] = 'gitlabhq_production'
+        gitlab_rails['db_pool'] = 10
+        gitlab_rails['db_username'] = 'gitlab'
+        gitlab_rails['db_password'] = 'gitlabpassword'
+        gitlab_rails['db_host'] = 'postgres'
+    depends_on:
+      - postgres
+    networks:
+      - gitlab-network
+
+  # Service PostgreSQL
+  postgres:
+    image: 'postgres:latest'
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gitlab
+      POSTGRES_PASSWORD: gitlabpassword
+      POSTGRES_DB: gitlabhq_production
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - gitlab-network
+
+volumes:
+  gitlab-data:
+  gitlab-config:
+  gitlab-logs:
+  postgres-data:
+
+networks:
+  gitlab-network:
+    driver: bridge

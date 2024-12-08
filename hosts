@@ -1,0 +1,5 @@
+[gitlab]
+gitlab_host ansible_host=192.168.19.130 ansible_user=root
+
+[postgres]
+postgres_host ansible_host=192.168.19.131 ansible_user=root
